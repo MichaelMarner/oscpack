@@ -46,7 +46,7 @@ ip/posix contains the POSIX implementation of the networking classes
 
 
 Building
---------
+========
 
 The idea is that you will embed this source code in your projects as you 
 see fit. The Makefile has an install rule for building a shared library and 
@@ -54,7 +54,7 @@ installing headers in usr/local. It can also build a static library.
 There is a CMakeLists.txt for building with cmake.
 
 Makefile builds
-...............
+---------------
 
 The Makefile works for Linux and Max OS X. It should also work on other platforms
 that have make. Just run:
@@ -65,7 +65,7 @@ You can run "make install" if you like.
 
 
 Cmake builds
-............
+------------
 
 There is a CMakeLists.txt file which has been tested with cmake on 
 Windows and Linux. It should work on other platforms too.
@@ -78,7 +78,7 @@ Run cmake without any parameters to get a list of available generators.
 
 
 Mingw build batch file
-......................
+----------------------
 
 For Windows there is a batch file for doing a simple test build with 
 MinGW gcc called make.MinGW32.bat. This will build the test executables 
