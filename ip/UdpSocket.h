@@ -148,9 +148,11 @@ public:
 };
 
 
-// UdpListeningReceiveSocket provides a simple way to bind one listener
-// to a single socket without having to manually set up a SocketReceiveMultiplexer
 
+/**
+ * UdpListeningReceiveSocket provides a simple way to bind one listener
+ * to a single socket without having to manually set up a SocketReceiveMultiplexer
+ */
 class UdpListeningReceiveSocket : public UdpSocket{
     SocketReceiveMultiplexer mux_;
     PacketListener *listener_;
@@ -165,11 +167,55 @@ public:
     ~UdpListeningReceiveSocket()
         { mux_.DetachSocketListener( this, listener_ ); }
 
-    // see SocketReceiveMultiplexer above for the behaviour of these methods...
+    /**
+     * @name Processing incoming packets
+     * @{
+     */
+
+    /**
+     * Loops forever, listening for incoming packets.
+     * 
+     * This function starts a loop, listening for incoming packets and
+     * forwarding them to the PacketListener passed into the constructor.
+     *
+     * This is a blocking function, so you may want to put it in another
+     * thread.
+     */
     void Run() { mux_.Run(); }
+
+    /**
+     * Loops until SIG_INT, listening for incoming packets.
+     *
+     * This function works the same way as Run, but will return when a
+     * SIG_INT is raised (Ctrl-C).
+     */
 	void RunUntilSigInt() { mux_.RunUntilSigInt(); }
+
+    /** @} */
+
+    /**
+     * @name Exiting the listen loop.
+     * @{
+     */
+
+    /**
+     * Designed to be called from a PacketListener, causes the Run method to return.
+     *
+     * This method should be called from the PacketListener passed into the
+     * constructor, and causes the Run and RunUntilSigInt functions to return
+     */
     void Break() { mux_.Break(); }
+
+    /**
+     * Causes the Run functions to return.
+     *
+     * This function can be called from another thread in order to cause the
+     * Run or RunUntilSigInt functions to return.
+     */
     void AsynchronousBreak() { mux_.AsynchronousBreak(); }
+
+    ///@}
+
 };
 
 
