@@ -471,6 +471,20 @@ public:
 };
 
 
+/**
+ * A message received from an OSC client.
+ *
+ * A message contains a type, and one or more arguments containing the actual
+ * values sent.
+ *
+ * You can iterate over the arguments in a loop using the iterator:
+ *
+ * <pre>
+ *     for (ReceivedMessageArgumentIterator it = m.ArgumentsBegin(); it != m.ArgumentsEnd(); it++) {
+ *         // do something with *it;
+ *     }
+ *  </pre>
+ */
 class ReceivedMessage{
     void Init( const char *bundle, osc_bundle_element_size_t size );
 public:
@@ -483,27 +497,52 @@ public:
 	bool AddressPatternIsUInt32() const;
 	uint32 AddressPatternAsUInt32() const;
 
+    /**
+     * Returns the number of arguments associated with this message.
+     */
 	uint32 ArgumentCount() const { return static_cast<uint32>(typeTagsEnd_ - typeTagsBegin_); }
 
+    /**
+     * Returns the TypeTag for arguments in this message.
+     *
+     * A comma delimited list of tags corresponding to each argument.
+     *
+     */
     const char *TypeTags() const { return typeTagsBegin_; }
 
 
     typedef ReceivedMessageArgumentIterator const_iterator;
     
+    /**
+     * @name Argument Iteration
+     * @{
+     */
+
+    /**
+     * Returns an iterator pointing to the first argument.
+     */
 	ReceivedMessageArgumentIterator ArgumentsBegin() const
     {
         return ReceivedMessageArgumentIterator( typeTagsBegin_, arguments_ );
     }
      
+    /**
+     * The end of the argument list.
+     */
 	ReceivedMessageArgumentIterator ArgumentsEnd() const
     {
         return ReceivedMessageArgumentIterator( typeTagsEnd_, 0 );
     }
 
+    /**
+     * Returns an output stream that can be used to obtain arguments using the
+     * >> operator.
+     */
     ReceivedMessageArgumentStream ArgumentStream() const
     {
         return ReceivedMessageArgumentStream( ArgumentsBegin(), ArgumentsEnd() );
     }
+    /// @}
 
 private:
 	const char *addressPattern_;
