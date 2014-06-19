@@ -1,4 +1,6 @@
 oscpack -- Open Sound Control packet manipulation library
+=========================================================
+
 A simple C++ library for packing and unpacking OSC packets.
 http://www.rossbencina.com/code/oscpack
 
@@ -16,27 +18,26 @@ for other transport methods (e.g. serial).
 
 The key goals of the oscpack library are:
 
-    - Be a simple and complete implementation of OSC
-    - Be portable to a wide variety of platforms
-    - Allow easy development of robust OSC applications 
-      (for example it should be impossible to crash a server 
-      by sending it malformed packets, and difficult to create 
-      malformed packets.)
+* Be a simple and complete implementation of OSC
+* Be portable to a wide variety of platforms
+* Allow easy development of robust OSC applications (for example it should be
+  impossible to crash a server by sending it malformed packets, and difficult
+  to create malformed packets.)
 
 Here's a quick run down of the key files:
 
-osc/OscReceivedElements -- classes for parsing a packet
-osc/OscPrintRecievedElements -- iostream << operators for printing packet elements
-osc/OscOutboundPacketStream -- a class for packing messages into a packet
-osc/OscPacketListener -- base class for listening to OSC packets on a UdpSocket
-ip/IpEndpointName -- class that represents an IP address and port number
-ip/UdpSocket -- classes for UDP transmission and listening sockets
-tests/OscUnitTests -- unit test program for the OSC modules
-tests/OscSendTests -- examples of how to send messages
-tests/OscReceiveTest -- example of how to receive the messages sent by OSCSendTests
-examples/OscDump -- a program that prints received OSC packets
-examples/SimpleSend -- a minimal program to send an OSC message
-examples/SimpleReceive -- a minimal program to receive an OSC message
+* osc/OscReceivedElements -- classes for parsing a packet
+* osc/OscPrintRecievedElements -- iostream << operators for printing packet elements
+* osc/OscOutboundPacketStream -- a class for packing messages into a packet
+* osc/OscPacketListener -- base class for listening to OSC packets on a UdpSocket
+* ip/IpEndpointName -- class that represents an IP address and port number
+* ip/UdpSocket -- classes for UDP transmission and listening sockets
+* tests/OscUnitTests -- unit test program for the OSC modules
+* tests/OscSendTests -- examples of how to send messages
+* tests/OscReceiveTest -- example of how to receive the messages sent by OSCSendTests
+* examples/OscDump -- a program that prints received OSC packets
+* examples/SimpleSend -- a minimal program to send an OSC message
+* examples/SimpleReceive -- a minimal program to receive an OSC message
 
 osc/ contains all of the OSC related classes
 ip/ contains the networking classes
@@ -59,9 +60,9 @@ Makefile builds
 The Makefile works for Linux and Max OS X. It should also work on other platforms
 that have make. Just run:
 
-$ make
+    make
 
-You can run "make install" if you like.
+You can run `make install` if you like.
 
 
 Cmake builds
@@ -72,7 +73,7 @@ Windows and Linux. It should work on other platforms too.
 For example, to generate a Visual Studio 10 project, run cmake 
 like this:
 
-> cmake -G "Visual Studio 10"
+    cmake -G "Visual Studio 10"
 
 Run cmake without any parameters to get a list of available generators.
 
@@ -98,15 +99,15 @@ Verification test
 
 To run the unit tests:
 
-$ ./bin/OscUnitTests
+    ./bin/OscUnitTests
 
 To run the send and receive tests. Open two terminals. In one run:
 
-$ ./bin/OscReceiveTest
+    ./bin/OscReceiveTest
 
 Then in the other terminal run:
 
-$./bin/OscSendTests
+    ./bin/OscSendTests
 
 
 You should see an indication that the messages were received 
@@ -116,12 +117,12 @@ Note that OscSendTests intentionally sends some unexpected
 message parameters to test exception handling in the receiver.
 You will see some "error while parsing message" messages printed. 
 
-You can use ./bin/OscDump to print out OSC messages received
+You can use `./bin/OscDump` to print out OSC messages received
 from any program, including the test programs.
 
 
---
-
+Contributing
+============
 
 If you fix anything or write a set of TCP send/receive classes 
 please consider sending me a patch. My email address is 
@@ -147,4 +148,3 @@ See the file CHANGES for information about recent updates.
 
 See the file LICENSE for information about distributing and using this code.
 
-###
